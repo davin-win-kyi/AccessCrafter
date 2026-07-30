@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Northwind Studios &mdash; Join the Team</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 760px; margin: 2rem auto; color: #222; background: #fafafa; }
+  h1 { font-size: 1.3rem; }
+  .step { border-left: 4px solid #7a5cff; padding: 0.9rem 1.2rem; margin-bottom: 1.2rem; background: #fff; }
+  .step h2 { margin-top: 0; font-size: 1.05rem; }
+  label { display: block; margin-top: 0.6rem; font-size: 0.9rem; }
+  input, select, textarea { display: block; width: 100%; margin-top: 0.2rem; padding: 0.4rem; box-sizing: border-box; }
+  .req::after { content: " (required)"; color: #b00020; font-size: 0.75rem; }
+  .attachment-note { font-size: 0.85rem; margin-top: 0.3rem; }
+  .attachment-note.have { color: #0a7d2c; }
+  .attachment-note.need { color: #b00020; }
+  ol.steps-nav { display: flex; gap: 1.2rem; list-style: none; padding: 0; font-size: 0.8rem; }
+  button[type="submit"] { padding: 0.6rem 1.2rem; font-size: 1rem; background: #7a5cff; color: white; border: none; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Join the Team &mdash; Candidate Portal</h1>
+  <ol class="steps-nav" aria-label="Portal steps">
+    <li><a href="#about-you">About You</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#background">Educational Background</a></li>
+    <li><a href="#attachments">Attachments</a></li>
+    <li><a href="#confirm">Confirm &amp; Send</a></li>
+  </ol>
+</header>
+
+<main>
+<form id="candidate-portal-form">
+
+  <section class="step" id="about-you" aria-labelledby="about-you-heading">
+    <h2 id="about-you-heading">About You</h2>
+    <label class="req" for="candidate-name">Preferred name</label>
+    <input id="candidate-name" name="candidateName" type="text" required value="Sam Rivera" />
+
+    <label class="req" for="candidate-email">Contact email</label>
+    <input id="candidate-email" name="candidateEmail" type="email" required value="sam.rivera@example.com" />
+
+    <label for="candidate-location">Current location</label>
+    <input id="candidate-location" name="candidateLocation" type="text" value="" />
+  </section>
+
+  <section class="step" id="experience" aria-labelledby="experience-heading">
+    <h2 id="experience-heading">Relevant Experience</h2>
+    <label class="req" for="current-role">Current or most recent role</label>
+    <input id="current-role" name="currentRole" type="text" required value="" />
+
+    <label class="req" for="employer">Employer</label>
+    <input id="employer" name="employer" type="text" required value="" />
+
+    <label for="portfolio-link">Portfolio link</label>
+    <input id="portfolio-link" name="portfolioLink" type="url" value="" />
+  </section>
+
+  <section class="step" id="background" aria-labelledby="background-heading">
+    <h2 id="background-heading">Educational Background</h2>
+    <label class="req" for="qualification">Highest qualification</label>
+    <input id="qualification" name="qualification" type="text" required value="" />
+
+    <label class="req" for="school">School / university</label>
+    <input id="school" name="school" type="text" required value="" />
+  </section>
+
+  <section class="step" id="attachments" aria-labelledby="attachments-heading">
+    <h2 id="attachments-heading">Attachments</h2>
+    <label class="req" for="cv-file">CV / résumé</label>
+    <input id="cv-file" name="cvFile" type="file" required />
+    <p class="attachment-note need" data-upload-status="cv">Not yet attached</p>
+
+    <label for="portfolio-file">Portfolio sample (optional)</label>
+    <input id="portfolio-file" name="portfolioFile" type="file" />
+    <p class="attachment-note need" data-upload-status="portfolio">Not yet attached</p>
+  </section>
+
+  <section class="step" id="confirm" aria-labelledby="confirm-heading">
+    <h2 id="confirm-heading">Confirm &amp; Send</h2>
+    <p>Double-check every step above &mdash; required items are marked (required).</p>
+    <button type="submit" id="send-application">Send Application</button>
+  </section>
+
+</form>
+</main>
+
+</body>
+</html>

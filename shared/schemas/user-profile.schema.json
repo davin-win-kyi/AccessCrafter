@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://accesscrafter.local/schemas/user-profile.schema.json",
+  "title": "UserProfile",
+  "description": "A small, deliberately simple distilled standing profile -- not a log. Overwritten (not appended to) after each approved strategy via a reconciliation step that decides whether new information updates, merges with, or revises an existing note.",
+  "type": "object",
+  "properties": {
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "preferredPresentationDefaults": {
+      "type": "object",
+      "description": "Widget size/theme leanings inferred from past configuration choices.",
+      "properties": {
+        "widgetType": {
+          "type": "string",
+          "enum": ["checklist", "progress-bar", "badge-list", "sidebar-panel", "inline-annotation"]
+        },
+        "theme": { "type": "string", "enum": ["light", "dark", "auto"] },
+        "size": { "type": "string", "enum": ["compact", "standard"] }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Short natural-language distillations, e.g. 'tends to prefer compact widgets over sidebars'."
+    }
+  }
+}

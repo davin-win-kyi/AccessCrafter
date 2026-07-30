@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>TechCorp Careers &mdash; Software Engineer Application</title>
+<style>
+  body { font-family: sans-serif; max-width: 720px; margin: 2rem auto; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; }
+  fieldset { border: 1px solid #ccc; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+  legend { font-weight: 600; padding: 0 0.4rem; }
+  label { display: block; margin-top: 0.6rem; font-size: 0.9rem; }
+  input, select { display: block; width: 100%; margin-top: 0.2rem; padding: 0.4rem; box-sizing: border-box; }
+  .required::after { content: " *"; color: #b00020; }
+  .hint { color: #666; font-size: 0.8rem; }
+  .file-status { font-size: 0.85rem; margin-top: 0.3rem; }
+  .file-status.uploaded { color: #0a7d2c; }
+  .file-status.missing { color: #b00020; }
+  nav ul { list-style: none; display: flex; gap: 1rem; padding: 0; font-size: 0.85rem; }
+  nav a { text-decoration: none; color: #444; }
+  button[type="submit"] { padding: 0.6rem 1.2rem; font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Software Engineer &mdash; Application</h1>
+  <nav aria-label="Application sections">
+    <ul>
+      <li><a href="#personal-info">Personal Info</a></li>
+      <li><a href="#work-experience">Work Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#documents">Documents</a></li>
+      <li><a href="#review">Review &amp; Submit</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<form id="application-form">
+
+  <fieldset id="personal-info" aria-labelledby="personal-info-legend">
+    <legend id="personal-info-legend">Personal Information</legend>
+    <label class="required" for="full-name">Full name</label>
+    <input id="full-name" name="fullName" type="text" required value="Jordan Lee" />
+
+    <label class="required" for="email">Email address</label>
+    <input id="email" name="email" type="email" required value="jordan.lee@example.com" />
+
+    <label for="phone">Phone number</label>
+    <input id="phone" name="phone" type="tel" value="" />
+  </fieldset>
+
+  <fieldset id="work-experience" aria-labelledby="work-experience-legend">
+    <legend id="work-experience-legend">Work Experience</legend>
+    <label class="required" for="job-title">Most recent job title</label>
+    <input id="job-title" name="jobTitle" type="text" required value="Frontend Developer" />
+
+    <label class="required" for="company">Company</label>
+    <input id="company" name="company" type="text" required value="" />
+
+    <label for="years-experience">Years of experience</label>
+    <input id="years-experience" name="yearsExperience" type="number" value="" />
+    <p class="hint">Leave blank if less than one year.</p>
+  </fieldset>
+
+  <fieldset id="education" aria-labelledby="education-legend">
+    <legend id="education-legend">Education</legend>
+    <label class="required" for="degree">Highest degree</label>
+    <input id="degree" name="degree" type="text" required value="" />
+
+    <label class="required" for="institution">Institution</label>
+    <input id="institution" name="institution" type="text" required value="" />
+  </fieldset>
+
+  <fieldset id="documents" aria-labelledby="documents-legend">
+    <legend id="documents-legend">Document Uploads</legend>
+    <label class="required" for="resume-upload">Resume (PDF)</label>
+    <input id="resume-upload" name="resume" type="file" required />
+    <p class="file-status uploaded" data-upload-status="resume">Uploaded: resume-jordan-lee.pdf</p>
+
+    <label for="cover-letter-upload">Cover letter (optional)</label>
+    <input id="cover-letter-upload" name="coverLetter" type="file" />
+    <p class="file-status missing" data-upload-status="cover-letter">No file uploaded</p>
+  </fieldset>
+
+  <fieldset id="review" aria-labelledby="review-legend">
+    <legend id="review-legend">Review &amp; Submit</legend>
+    <p class="hint">Please review all sections above before submitting. Required fields are marked with *.</p>
+    <button type="submit" id="submit-application">Submit Application</button>
+  </fieldset>
+
+</form>
+</main>
+
+</body>
+</html>

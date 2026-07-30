@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://accesscrafter.local/schemas/widget-spec.schema.json",
+  "title": "WidgetSpec",
+  "description": "A declarative description of a support widget: which fixed template renders it, where it mounts, and which components it monitors. Interpreted by the content script against a fixed, pre-built set of React templates -- never executable/generated code.",
+  "type": "object",
+  "required": ["widgetId", "type", "mountPoint", "monitors", "render", "updatePolicy"],
+  "properties": {
+    "widgetId": { "type": "string", "format": "uuid" },
+    "type": {
+      "type": "string",
+      "enum": ["checklist", "progress-bar", "badge-list", "sidebar-panel", "inline-annotation"]
+    },
+    "mountPoint": {
+      "type": "object",
+      "required": ["strategy"],
+      "properties": {
+        "strategy": { "type": "string", "enum": ["fixed", "anchored"] },
+        "anchorComponentId": { "type": ["string", "null"] },
+        "position": { "type": "string", "description": "e.g. 'bottom-right', 'top-of-page'" }
+      }
+    },
+    "monitors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["componentId", "watch", "selector"],
+        "properties": {
+          "componentId": { "type": "string" },
+          "watch": { "type": "string", "enum": ["attribute", "text", "presence", "value"] },
+          "selector": {
+            "type": "string",
+            "description": "Resolved from the cached PageModel at mount time."
+          },
+          "debounceMs": { "type": "integer", "default": 300 }
+        }
+      }
+    },
+    "render": {
+      "type": "object",
+      "required": ["template"],
+      "properties": {
+        "template": { "type": "string", "description": "One of the fixed React template names." },
+        "dataBinding": {
+          "type": "string",
+          "description": "Declarative description of which monitored values map to which displayed fields."
+        }
+      }
+    },
+    "updatePolicy": { "type": "string", "default": "recompute-on-any-monitor-change" }
+  }
+}

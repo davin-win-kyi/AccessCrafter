@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://accesscrafter.local/schemas/transferable-strategy.schema.json",
+  "title": "TransferableStrategyRecord",
+  "description": "A support strategy decoupled from its source webpage: everything page-specific (domSelector, componentId) is stripped, and everything reused at match time is role-and-relationship-shaped. This is the record persisted under server/data/strategies/ and used by Stage 6 matching.",
+  "type": "object",
+  "required": ["transferableStrategyId", "name", "createdAt", "difficulty", "requiredSemantics", "behaviorSpec", "presentationSpec"],
+  "properties": {
+    "transferableStrategyId": { "type": "string", "format": "uuid" },
+    "name": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "sourcePageDomain": {
+      "type": "string",
+      "description": "Reference only, never used in matching."
+    },
+    "difficulty": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "string", "description": "Generalized away from the source page." },
+        "taskType": { "type": "string" }
+      }
+    },
+    "requiredSemantics": {
+      "type": "object",
+      "properties": {
+        "requiredRoles": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "e.g. ['form-section', 'submit-action']"
+        },
+        "requiredRelationships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["part-of", "depends-on", "precedes", "sibling-of"] },
+              "between": {
+                "type": "array",
+                "items": { "type": "string" },
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        "requiredStateInfo": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "e.g. ['completion status per section']"
+        }
+      }
+    },
+    "behaviorSpec": {
+      "description": "Same shape as StrategySpec.dimensions.behavior, but parameterized by role, not componentId.",
+      "type": "object"
+    },
+    "presentationSpec": {
+      "description": "Same shape as StrategySpec.dimensions.presentation.",
+      "type": "object"
+    },
+    "usageHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "appliedToPageModelId": { "type": "string", "format": "uuid" },
+          "appliedAt": { "type": "string", "format": "date-time" },
+          "outcome": { "type": "string", "enum": ["approved", "rejected", "modified"] }
+        }
+      }
+    }
+  }
+}

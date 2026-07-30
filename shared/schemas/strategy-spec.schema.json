@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://accesscrafter.local/schemas/strategy-spec.schema.json",
+  "title": "StrategySpec",
+  "description": "A configured support strategy for one session, expressed across the paper's 4 configuration dimensions: information, behavior, triggering, presentation.",
+  "type": "object",
+  "required": ["strategySpecId", "sessionId", "title", "difficultyAddressed", "dimensions", "version", "status"],
+  "properties": {
+    "strategySpecId": { "type": "string", "format": "uuid" },
+    "sessionId": { "type": "string", "format": "uuid" },
+    "title": { "type": "string", "description": "e.g. 'Section Completion Checklist'" },
+    "difficultyAddressed": { "type": "string" },
+    "dimensions": {
+      "type": "object",
+      "required": ["information", "behavior", "triggering", "presentation"],
+      "properties": {
+        "information": {
+          "type": "object",
+          "properties": {
+            "tracks": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "componentId or description of tracked data"
+            },
+            "displayFields": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "e.g. section name, completion status"
+            }
+          }
+        },
+        "behavior": {
+          "type": "object",
+          "properties": {
+            "updateRule": {
+              "type": "string",
+              "description": "e.g. 'recompute completion whenever any tracked field changes'"
+            },
+            "monitoredComponentIds": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "triggering": {
+          "type": "object",
+          "properties": {
+            "visibility": {
+              "type": "string",
+              "enum": ["always", "on-incomplete", "on-demand", "on-state-change"]
+            },
+            "condition": { "type": "string" }
+          }
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "widgetType": {
+              "type": "string",
+              "enum": ["checklist", "progress-bar", "badge-list", "sidebar-panel", "inline-annotation"]
+            },
+            "placement": {
+              "type": "string",
+              "description": "e.g. 'fixed-bottom-right' or 'anchored-to:c1'"
+            },
+            "style": {
+              "type": "object",
+              "properties": {
+                "theme": { "type": "string", "enum": ["light", "dark", "auto"] },
+                "size": { "type": "string", "enum": ["compact", "standard"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "generatedWidgetSpec": {
+      "description": "Populated after Stage 3 (/generate-support) runs.",
+      "$ref": "./widget-spec.schema.json"
+    },
+    "version": { "type": "integer" },
+    "status": { "type": "string", "enum": ["draft", "previewing", "approved", "rejected"] }
+  }
+}

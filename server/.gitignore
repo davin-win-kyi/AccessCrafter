@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+
+# Backend-owned local data store: keep the directory structure (.gitkeep)
+# but not the runtime/research data itself.
+data/**/*.json
+!data/**/.gitkeep

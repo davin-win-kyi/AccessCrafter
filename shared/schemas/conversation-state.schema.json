@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://accesscrafter.local/schemas/conversation-state.schema.json",
+  "title": "ConversationState",
+  "description": "The state of one strategy-authoring session, mapped to the paper's 5-step conversational workflow.",
+  "type": "object",
+  "required": ["sessionId", "pageModelId", "createdAt", "updatedAt", "status", "messages"],
+  "properties": {
+    "sessionId": { "type": "string", "format": "uuid" },
+    "pageModelId": { "type": "string", "format": "uuid" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "gathering-difficulty",
+        "confirming-difficulty",
+        "selecting-strategy",
+        "configuring-strategy",
+        "previewing",
+        "approved",
+        "rejected"
+      ]
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["messageId", "role", "content", "timestamp"],
+        "properties": {
+          "messageId": { "type": "string", "format": "uuid" },
+          "role": { "type": "string", "enum": ["user", "assistant", "system"] },
+          "content": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "metadata": { "type": "object" }
+        }
+      }
+    },
+    "difficulty": {
+      "type": "object",
+      "properties": {
+        "userDescription": { "type": "string" },
+        "groundedInterpretation": {
+          "type": "string",
+          "description": "System's restatement, grounded in the page model"
+        },
+        "relatedComponentIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confirmed": { "type": "boolean" }
+      }
+    },
+    "candidateStrategies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["strategyOptionId", "title", "summary"],
+        "properties": {
+          "strategyOptionId": { "type": "string" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "selectedStrategyOptionId": { "type": ["string", "null"] },
+    "configuration": {
+      "description": "Draft StrategySpec, evolves through the 4 configuration dimensions.",
+      "$ref": "./strategy-spec.schema.json"
+    },
+    "refinementHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["turn", "userFeedback", "systemChangeSummary", "resultingConfigVersion"],
+        "properties": {
+          "turn": { "type": "integer" },
+          "userFeedback": { "type": "string" },
+          "systemChangeSummary": { "type": "string" },
+          "resultingConfigVersion": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

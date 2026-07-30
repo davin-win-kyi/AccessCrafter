@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://accesscrafter.local/schemas/page-model.schema.json",
+  "title": "PageModel",
+  "description": "A structured semantic representation of a webpage's purpose, major components, their relationships, and current state. Components are semantic groups (e.g. a form section), not individual DOM elements.",
+  "type": "object",
+  "required": ["modelId", "url", "capturedAt", "pageTitle", "pagePurpose", "taskType", "components"],
+  "properties": {
+    "modelId": { "type": "string", "format": "uuid" },
+    "url": { "type": "string" },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "pageTitle": { "type": "string" },
+    "pagePurpose": {
+      "type": "string",
+      "description": "1-2 sentence natural-language purpose, e.g. 'Multi-section job application form'"
+    },
+    "taskType": {
+      "type": "string",
+      "description": "Open string, not a strict enum (e.g. 'multi-section-form'). Semantic similarity at match time matters more than exact wording."
+    },
+    "components": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/component" }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "required": ["componentId", "semanticRole", "description", "state", "relationships"],
+      "properties": {
+        "componentId": {
+          "type": "string",
+          "description": "Stable within this model only, e.g. 'c1'. Never used outside the source page."
+        },
+        "semanticRole": {
+          "type": "string",
+          "description": "e.g. 'form-section', 'navigation', 'progress-indicator', 'submit-action'"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-visible name if any, e.g. 'Work Experience'"
+        },
+        "description": { "type": "string" },
+        "domSelector": {
+          "type": "string",
+          "description": "CSS selector/path. Source-page-local only; stripped when generalized into a TransferableStrategyRecord."
+        },
+        "state": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["empty", "partial", "complete", "error", "n/a"]
+            },
+            "details": { "type": "string", "description": "e.g. '3 of 5 fields filled'" },
+            "lastUpdated": { "type": "string", "format": "date-time" }
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["targetComponentId", "type"],
+            "properties": {
+              "targetComponentId": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["part-of", "depends-on", "precedes", "sibling-of"]
+              },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
