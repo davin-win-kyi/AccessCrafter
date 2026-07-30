@@ -1,8 +1,9 @@
 # AccessCrafter — Architecture
 
 This is the working reference for the system design. For the full rationale
-behind each decision, see the original planning document; this file is the
-condensed, living version meant to stay in sync with the code.
+behind each decision, see the original research proposal
+([`proposal.md`](proposal.md)); this file is the condensed, living version
+meant to stay in sync with the code.
 
 ## Two processes, one contract
 
