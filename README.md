@@ -43,8 +43,7 @@ See [`docs/proposal.md`](docs/proposal.md) for the full research proposal
   extension.
 - **`shared/`** — JSON Schema contracts (`shared/schemas/`) that both sides
   validate against, and static fixture pages (`shared/testing/`) used to
-  exercise the pipeline end to end without depending on live third-party
-  sites.
+  test the pipeline end to end.
 
 All communication between the extension and the server happens over plain
 HTTP to `http://localhost:8787` (JSON in, JSON out) — there is no shared file
