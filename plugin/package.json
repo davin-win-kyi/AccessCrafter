@@ -1,5 +1,5 @@
 {
-  "name": "accesscrafter-extension",
+  "name": "accesscrafter-plugin",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@wxt-dev/module-react": "^1.1.0",
+    "@wxt-dev/module-react": "1.1.3",
     "typescript": "^5.5.4",
     "wxt": "^0.19.13"
   }

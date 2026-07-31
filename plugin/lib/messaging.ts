@@ -9,7 +9,7 @@ export type ModelCurrentPageResponse =
   | { ok: true; pageModel: PageModel }
   | { ok: false; error: string };
 
-export type ExtensionMessage = ModelCurrentPageMessage;
+export type PluginMessage = ModelCurrentPageMessage;
 
 export async function modelCurrentPage(): Promise<ModelCurrentPageResponse> {
   return browser.runtime.sendMessage({ type: 'MODEL_CURRENT_PAGE' } satisfies ModelCurrentPageMessage);
